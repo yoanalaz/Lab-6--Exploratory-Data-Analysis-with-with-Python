@@ -5,7 +5,7 @@ Created on Wed Oct 22 19:14:43 2025
 @authors: Yoana Lazarova and Guila Amar
 """
 
-#Part 3
+# Part 3 – Understanding and preparing the data
 
 #2) 
 import pandas as pd
@@ -42,3 +42,21 @@ print(World_Dem['High Income Economy'].value_counts())
 #8)
 
 #9)
+
+#Part 4 - Visualizing statistical relationships
+
+#1)
+
+#2)
+
+#3)
+
+#4)
+
+#5)
+
+#6)
+
+#a)
+#b)
+#c)
