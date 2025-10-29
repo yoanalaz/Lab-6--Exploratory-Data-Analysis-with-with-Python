@@ -46,18 +46,30 @@ print(World_Dem['High Income Economy'].value_counts())
 #Part 4 - Visualizing statistical relationships
 
 
+
 #1) “Is there any association between GNI per capita and life expectancy?
 #By taking a look at both scatter graphs(female and male), both increase their life expectency as their GNI per capita increase and eventually stagnates at a certain point., because as we know life is not eternal. 
 
 sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, female')
 sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, male')
 
+#2) Does the association between GNI per capita and life expectancy vary by region?
+#Yes, it does. For exemple, we see that in Africa the income stays low compared to the other regions aswell as the life expectancy.
+#However, in Europe, the incomes are much higher and the life expectancy is between 75 and 80 +. 
 
-#2)
+sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, female', hue='Region')
+sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, male', hue='Region')
 
-#3)
+#3) Why can't we see the area representing a standard deviation in the plot? 
+#Because the data used for the line plot has already been summarized, 
+#meaning that each value of GNI per capita has only one mean life expectancy value for there are no multiple data points per x for Seaborn to calculate the sd from.
 
-#4)
+sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, female', hue= 'Region', kind='line', errorbar='sd')
+sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, male', hue= 'Region', kind='line', errorbar='sd')
+
+#4)   
+sb.lmplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, female', hue= 'Region')
+sb.lmplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, male', hue= 'Region')
 
 #5)
 
