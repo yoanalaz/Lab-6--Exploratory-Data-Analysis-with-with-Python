@@ -28,8 +28,8 @@ print(World_Dem.describe())
 #It give us a simple statistical analysis of the numerical values--> mean,sd,min,max etc.
 
 #6) 
-World_Dem['GNI per capital']= World_Dem['GNI']/ World_Dem['Population'] 
-World_Dem['GNI per capital']= World_Dem['GNI per capital'].round(2) 
+World_Dem['GNI per capita']= World_Dem['GNI']/ World_Dem['Population'] 
+World_Dem['GNI per capita']= World_Dem['GNI per capita'].round(2) 
 
 #7)
 #a) 
@@ -39,13 +39,17 @@ print(World_Dem['Region'].value_counts())
 print(World_Dem['High Income Economy'].value_counts())
 
 
-#8)
+#8) 
 
 #9)
 
 #Part 4 - Visualizing statistical relationships
 
-#1)
+
+#1) “Is there any association between GNI per capita and life expectancy?
+sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, female', kind='line')
+sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, male', kind='line')
+
 
 #2)
 
