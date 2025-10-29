@@ -47,8 +47,10 @@ print(World_Dem['High Income Economy'].value_counts())
 
 
 #1) “Is there any association between GNI per capita and life expectancy?
-sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, female', kind='line')
-sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, male', kind='line')
+#By taking a look at both scatter graphs(female and male), both increase their life expectency as their GNI per capita increase and eventually stagnates at a certain point., because as we know life is not eternal. 
+
+sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, female')
+sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, male')
 
 
 #2)
