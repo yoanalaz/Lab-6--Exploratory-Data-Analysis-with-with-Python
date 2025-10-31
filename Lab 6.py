@@ -48,7 +48,8 @@ print(World_Dem['High Income Economy'].value_counts())
 
 
 #1) “Is there any association between GNI per capita and life expectancy?
-#By taking a look at both scatter graphs(female and male), both increase their life expectency as their GNI per capita increase and eventually stagnates at a certain point., because as we know life is not eternal. 
+#By taking a look at both scatter graphs(female and male), both increase their life expectency as their GNI per capita increase
+#and eventually stagnates at a certain point., because as we know life is not eternal. 
 
 sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, female')
 sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, male')
@@ -71,7 +72,34 @@ sb.relplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, male', hue
 sb.lmplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, female', hue= 'Region')
 sb.lmplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, male', hue= 'Region')
 
-#5)
+#5) 
+
+
+#5.0 Is there a relationship between life expentancy and the number of physiciens? Is it similar for males and females?
+
+
+# Reshape Data to have 2 seperate colomns for each value (male and female ) to be able to split life expectancy between genders in graphs using 'col'.
+
+cols_to_melt= ['Life expectancy, male','Life expectancy, female']
+World_Dem= World_Dem.melt(
+    id_vars=[col for col in World_Dem.columns if col not in cols_to_melt], # Keep intact all the other colomns using a conditional.
+   value_vars=cols_to_melt,
+   var_name='Gender',             #new column name for the old column headers
+   value_name='Life expectancy'  # new columm name for the values
+)   
+
+#Clean up the Gender columm
+World_Dem['Gender']=World_Dem['Gender'].replace({'Life expectancy, male':'Male', 'Life expectancy, female': 'Female'})
+
+sb.relplot(data= World_Dem, x='Physicians', y='Life expectancy', col= 'Gender')
+
+
+#5.1
+#5.2
+#5.3
+#5.4
+#5.5
+
 
 #6)
 
