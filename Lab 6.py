@@ -77,9 +77,7 @@ sb.lmplot(data= World_Dem, x= 'GNI per capita' ,y= 'Life expectancy, male', hue=
 
 #5.0 Is there a relationship between life expentancy and the number of physiciens? Is it similar for males and females?
 
-
 # Reshape Data to have 2 seperate colomns for each value (male and female ) to be able to split life expectancy between genders in graphs using 'col'.
-
 cols_to_melt= ['Life expectancy, male','Life expectancy, female']
 World_Dem= World_Dem.melt(
     id_vars=[col for col in World_Dem.columns if col not in cols_to_melt], # Keep intact all the other colomns using a conditional.
@@ -91,8 +89,11 @@ World_Dem= World_Dem.melt(
 #Clean up the Gender columm
 World_Dem['Gender']=World_Dem['Gender'].replace({'Life expectancy, male':'Male', 'Life expectancy, female': 'Female'})
 
+#Plot the graphs side by side 
 sb.relplot(data= World_Dem, x='Physicians', y='Life expectancy', col= 'Gender')
 
+#Answer: Yes, as the number of physicians increase (professionals in healt care), the life expecancy of both males and females increase.
+#However compared to the males, females display visually on the graph a higher life expectancy than males, which makes sense because it is know that woman generaly live longer than man.
 
 #5.1
 #5.2
