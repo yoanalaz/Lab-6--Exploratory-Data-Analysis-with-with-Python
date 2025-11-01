@@ -95,13 +95,31 @@ sb.relplot(data= World_Dem, x='Physicians', y='Life expectancy', col= 'Gender')
 #Answer: Yes, as the number of physicians increase (professionals in healt care), the life expecancy of both males and females increase.
 #However compared to the males, females display visually on the graph a higher life expectancy than males, which makes sense because it is know that woman generaly live longer than man.
 
-#5.1
-#5.2
-#5.3
-#5.4
-#5.5
+#5.1 Is there a relationship between female education and females in representation in politcs and does it vary across regions? 
+sb.relplot(data=World_Dem, x='Tertiary education, female', y= 'Women in national parliament', col='Region')
 
+#Answer: We observe that usually as the number of women are educated, the number of women present in the national parliment usually increases, but it really depends on the region. 
+#For exemple, in Africa this correlation seems less important, because there is less women in general that has access to tertiary education, but there is a big presence of women in politics.  
 
+#5.2 Is there a relationship between population size and greenhouse gas emissions?
+sb.relplot(data=World_Dem,x='Population', y= 'Greenhouse gas emissions', col='Region')
+
+#Answer: Yes, there is positive correlation; gas emissions increase with population increase. It is lowest in Africa and higuest in America. 
+    
+#5.3 Do wealthier countries (higher capita) produce fewer gas emissions per capita?
+
+#Answer:
+    
+#5.4 Does tourism depend on population size or economic wealth of a country?
+
+#Answer: 
+    
+#5.5 Is there a smaller gap in education between males and females in high income economies?
+World_Dem['Education Gap']= World_Dem['Tertiary education, male']-World_Dem['Tertiary education, female']
+sb.relplot( data= World_Dem, x='GNI', y= 'Education Gap',hue='High Income Economy', col='Region')
+
+#Answer: In general, yes there is in fact a smaller gap in education in high income economies such as in America, Asia and Oceania. However, it seems to be the opposite in Europe, where the gap is higher for high income economies (in orange).
+    
 #6)
 
 #a)
