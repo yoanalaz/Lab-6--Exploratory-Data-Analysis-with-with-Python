@@ -10,6 +10,7 @@ Created on Wed Oct 22 19:14:43 2025
 #2) 
 import pandas as pd
 import seaborn as sb
+import matplotlib.pyplot as plt
 
 World_Dem=pd.read_csv('wdi_wide.csv')
 
@@ -40,8 +41,15 @@ print(World_Dem['High Income Economy'].value_counts())
 
 
 #8) 
+table = pd.crosstab(World_Dem['Region'],World_Dem['High Income Economy'])
+print(table)
+print()
+
 
 #9)
+filtered_data = World_Dem[World_Dem['Life expectancy, female'] > 80] # filters out the countries where female life expectancy is less than 80
+
+print(filtered_data['Country Name'])
 
 #Part 4 - Visualizing statistical relationships
 
@@ -108,6 +116,22 @@ sb.relplot(data=World_Dem,x='Population', y= 'Greenhouse gas emissions', col='Re
     
 #5.3 Do wealthier countries (higher capita) produce fewer gas emissions per capita?
 
+# Compute GNI per capita if not already present
+if "GNI per capita" not in World_Dem.columns:
+    World_Dem["GNI per capita"] = World_Dem["GNI"] / World_Dem["Population"]
+
+# Compute emissions per capita
+World_Dem["Emissions per capita"] = World_Dem["Greenhouse gas emissions"] / World_Dem["Population"]
+
+# Plot relationship
+sb.set(style="whitegrid")
+plot1 = sb.lmplot(data=World_Dem,x="GNI per capita",y="Emissions per capita",hue="Region",)
+
+
+plt.title("Relationship between Wealth and Emissions per Capita")
+plt.xlabel("GNI per Capita (USD)")
+plt.ylabel("Emissions per Capita")
+plt.show()
 #Answer:
     
 #5.4 Does tourism depend on population size or economic wealth of a country?
