@@ -51,8 +51,8 @@ filtered_data = World_Dem[World_Dem['Life expectancy, female'] > 80] # filters o
 
 print(filtered_data['Country Name'])
 
-#Part 4 - Visualizing statistical relationships
 
+#Part 4 - Visualizing statistical relationships
 
 
 #1) “Is there any association between GNI per capita and life expectancy?
@@ -132,11 +132,25 @@ plt.title("Relationship between Wealth and Emissions per Capita")
 plt.xlabel("GNI per Capita (USD)")
 plt.ylabel("Emissions per Capita")
 plt.show()
-#Answer:
+#Answer: The scatterplot shows a slight positive trend where wealthier countries genereally emit more greenhouse gases per person, though there's regional variation.
     
 #5.4 Does tourism depend on population size or economic wealth of a country?
+# Tourism vs Population
+sb.relplot(data=World_Dem,x="Population",y="International tourism", hue="Region",kind="scatter",)
 
-#Answer: 
+plt.title("Tourism vs Population")
+plt.xlabel("Population")
+plt.ylabel("International Tourism Arrivals")
+plt.show()
+
+# Tourism vs GNI per capita
+sb.relplot(
+data=World_Dem,x="GNI per capita",y="International tourism",hue="Region",kind="scatter",)
+plt.title("Tourism vs Economic Wealth")
+plt.xlabel("GNI per Capita (USD)")
+plt.ylabel("International Tourism Arrivals")
+plt.show()
+#Answer: The graphs show that tourism isn't linked to population size but has a weak positive relationship with GNI per capita, meaning wealthier countries attract more tourism.
     
 #5.5 Is there a smaller gap in education between males and females in high income economies?
 World_Dem['Education Gap']= World_Dem['Tertiary education, male']-World_Dem['Tertiary education, female']
@@ -145,7 +159,53 @@ sb.relplot( data= World_Dem, x='GNI', y= 'Education Gap',hue='High Income Econom
 #Answer: In general, yes there is in fact a smaller gap in education in high income economies such as in America, Asia and Oceania. However, it seems to be the opposite in Europe, where the gap is higher for high income economies (in orange).
     
 #6)
-
 #a)
+# compute helper columns
+World_Dem["GNI per capita"] = World_Dem["GNI"] / World_Dem["Population"]
+World_Dem["Emissions per capita"] = World_Dem["Greenhouse gas emissions"] / World_Dem["Population"]
+
+sb.lmplot(data=World_Dem,x="Internet use",y="Emissions per capita",hue="Region")
+
+plt.title("Internet Use vs Emissions per Capita")
+plt.xlabel("Internet Use (%)")
+plt.ylabel("Emissions per Capita")
+plt.show()
+
+print("Correlation =", World_Dem["Internet use"].corr(World_Dem["Emissions per capita"]))
+
+#Answer: The regression between Internet use and emissions per capita suggests a weak positive relationship where countries with higher Internet access often have slightly higher emissions per person, though variability is large. 
+
+
 #b)
+high_emissions = World_Dem[World_Dem["Emissions per capita"] > 0.03]
+print("Countries with high emissions per capita (> 0.03):")
+print(high_emissions[["Country Name","Region","Emissions per capita"]])
+
+#Answer: Countries such as the U.S, Canada, Australia, and some Middle Eastern nations show emissions > 0.03.
+
+
 #c)
+sb.boxplot(
+data=World_Dem,x="Region",y="Emissions per capita")
+plt.title("Variation of Emissions per Capita by Region")
+plt.show()
+
+sb.scatterplot(data=World_Dem,x="Internet use",y="Emissions per capita",hue="Region")
+plt.title("Internet Use vs Emissions per Capita by Region")
+plt.xlabel("Internet Use (%)")
+plt.ylabel("Emissions per Capita")
+plt.show()
+
+#Answer: Regional boxplots reveal wide variation, where Africa and Oceania tend to have moderate or lower values, while Asia and the Americas include many high emitters. Regions with higher Internet use also tend to have higher emissions.
+
+#d)
+sb.boxplot(data=World_Dem,x="High Income Economy",y="Emissions per capita")
+plt.title("Emissions per Capita: High vs Non-High-Income Economies")
+plt.xlabel("High-Income Economy (1 = Yes, 0 = No)")
+plt.ylabel("Emissions per Capita")
+plt.show()
+
+# summary stats
+print(World_Dem.groupby("High Income Economy")["Emissions per capita"].describe())
+
+#Answer: Not all high-income economies have high emissions. The boxplot shows that while high-income countries generally emit more per capita on average, there is still a wide range where some wealthy countries have relatively low-emissions, and some non-high-income countries have higher ones.
